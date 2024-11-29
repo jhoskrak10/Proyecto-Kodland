@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Posada del Sol - Tu refugio de descanso</title>
+    <title>Hotel Posada del Sol - Experiencia Ancestral</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+        :root {
+            --color-primary: #FFB800;
+            --color-secondary: #FF8C00;     
+            --color-accent: #FFA500;
+            --color-background: #FFF9E6;
+            --color-text: #4A3000;
+        }
 
         * {
             margin: 0;
@@ -17,10 +25,12 @@
         body {
             font-family: 'Raleway', sans-serif;
             line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text);
         }
 
         .header {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1920/1080');
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/api/placeholder/1920/1080');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -29,16 +39,42 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: rgb(216, 172, 52);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sun-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+            opacity: 0.3;
+            animation: sunGlow 3s infinite alternate;
+        }
+
+        @keyframes sunGlow {
+            from {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0.1;
+            }
         }
 
         .nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 165, 0, 0.95);
             padding: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(255, 140, 0, 0.3);
+            z-index: 1000;
         }
 
         .nav ul {
@@ -53,20 +89,32 @@
 
         .nav a {
             text-decoration: none;
-            color: #333;
+            color: white;
             font-weight: 600;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .nav a:hover {
-            color: #c8a97e;
+            color: var(--color-text);
+            transform: scale(1.1);
         }
 
         .hotel-name {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
+            font-size: 4.5rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: titleFloat 3s infinite alternate;
+        }
+
+        @keyframes titleFloat {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10px);
+            }
         }
 
         .tagline {
@@ -75,25 +123,40 @@
         }
 
         .btn {
-            background-color: #c8a97e;
+            background: linear-gradient(45deg, var(--color-secondary), var(--color-primary));
             color: white;
             padding: 1rem 2rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
         }
 
         .btn:hover {
-            background-color: #b69468;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
         }
 
         .features {
             padding: 5rem 2rem;
-            background-color: #f9f9f9;
+            background: linear-gradient(135deg, #FFF9E6, #FFE4B5);
             text-align: center;
+        }
+
+        .inca-pattern {
+            height: 50px;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                var(--color-secondary) 10px,
+                var(--color-secondary) 20px
+            );
+            opacity: 0.1;
+            margin: 2rem 0;
         }
 
         .features-grid {
@@ -108,25 +171,37 @@
         .feature {
             padding: 2rem;
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(255, 140, 0, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
         }
 
         .feature:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
         }
 
         .feature i {
             font-size: 2.5rem;
-            color: #c8a97e;
+            color: var(--color-secondary);
             margin-bottom: 1rem;
+            transition: transform 0.3s;
         }
 
-        .feature h3 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 1rem;
-            color: #333;
+        .feature:hover i {
+            transform: scale(1.2) rotate(360deg);
         }
 
         .rooms {
@@ -139,7 +214,28 @@
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 3rem;
-            color: #333;
+            color: var(--color-text);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '☀';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            to {
+                transform: translateX(-50%) rotate(360deg);
+            }
         }
 
         .rooms-grid {
@@ -151,52 +247,172 @@
         }
 
         .room-card {
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .room-card:hover {
+            transform: scale(1.03);
         }
 
         .room-card img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .room-card:hover img {
+            transform: scale(1.1);
         }
 
         .room-info {
             padding: 1.5rem;
+            background: white;
         }
 
         .room-info h3 {
             font-family: 'Playfair Display', serif;
             margin-bottom: 0.5rem;
+            color: var(--color-text);
         }
 
         .price {
-            color: #c8a97e;
+            color: var(--color-secondary);
             font-weight: bold;
             font-size: 1.2rem;
         }
 
+        .gallery {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #FFE4B5, #FFF9E6);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .amenities {
+            padding: 5rem 2rem;
+            background-color: white;
+        }
+
+        .amenities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: var(--color-background);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .amenity-item:hover {
+            transform: translateX(10px);
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .testimonials {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #FFF9E6, #FFE4B5);
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--color-primary);
+            font-family: 'Playfair Display', serif;
+        }
+
         footer {
-            background-color: #333;
+            background: linear-gradient(45deg, var(--color-secondary), var(--color-primary));
             color: white;
             padding: 3rem 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
         }
 
         .social-links {
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .social-links a {
             color: white;
             margin: 0 1rem;
             font-size: 1.5rem;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            display: inline-block;
         }
 
         .social-links a:hover {
-            color: #c8a97e;
+            transform: translateY(-5px) scale(1.2);
+            color: var(--color-text);
         }
 
         @media (max-width: 768px) {
@@ -221,85 +437,43 @@
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#habitaciones">Habitaciones</a></li>
             <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#amenidades">Amenidades</a></li>
+            <li><a href="#testimonios">Testimonios</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
 
     <header class="header" id="inicio">
+        <div class="sun-overlay"></div>
         <h1 class="hotel-name">Posada del Sol</h1>
-        <p class="tagline">Tu refugio de descanso en el corazón de la ciudad</p>
-        <a href="#habitaciones" class="btn">Reservar Ahora</a>
+        <p class="tagline">Una experiencia inspirada en la grandeza Inca</p>
+        <a href="#habitaciones" class="btn">Descubre Nuestro Oasis</a>
     </header>
 
+    <div class="inca-pattern"></div>
+
     <section class="features" id="servicios">
-        <h2 class="section-title">Nuestros Servicios</h2>
+        <h2 class="section-title">Servicios Exclusivos</h2>
         <div class="features-grid">
             <div class="feature">
-                <i class="fas fa-wifi"></i>
-                <h3>WiFi Gratuito</h3>
-                <p>Conexión de alta velocidad en todas las áreas</p>
+                <i class="fas fa-spa"></i>
+                <h3>Spa Ancestral</h3>
+                <p>Tratamientos inspirados en la medicina tradicional Inca</p>
             </div>
             <div class="feature">
                 <i class="fas fa-swimming-pool"></i>
-                <h3>Piscina</h3>
-                <p>Disfruta de nuestra piscina con vista panorámica</p>
+                <h3>Piscina Solar</h3>
+                <p>Piscina climatizada con vista al amanecer</p>
             </div>
             <div class="feature">
                 <i class="fas fa-utensils"></i>
-                <h3>Restaurante</h3>
-                <p>Gastronomía local e internacional</p>
+                <h3>Cocina Andina</h3>
+                <p>Sabores auténticos de la gastronomía Inca</p>
             </div>
             <div class="feature">
-                <i class="fas fa-parking"></i>
-                <h3>Estacionamiento</h3>
-                <p>Parking gratuito para huéspedes</p>
+                <i class="fas fa-monument"></i>
+                <h3>Tours Culturales</h3>
+                <p>Excursiones a sitios arqueológicos cercanos</p>
             </div>
         </div>
-    </section>
-
-    <section class="rooms" id="habitaciones">
-        <h2 class="section-title">Nuestras Habitaciones</h2>
-        <div class="rooms-grid">
-            <div class="room-card">
-                <img src="/api/placeholder/400/300" alt="Habitación Estándar">
-                <div class="room-info">
-                    <h3>Habitación Estándar</h3>
-                    <p>Perfecta para viajeros individuales o parejas</p>
-                    <p class="price">Desde $99/noche</p>
-                    <a href="#" class="btn">Reservar</a>
-                </div>
-            </div>
-            <div class="room-card">
-                <img src="/api/placeholder/400/300" alt="Suite Familiar">
-                <div class="room-info">
-                    <h3>Suite Familiar</h3>
-                    <p>Espaciosa suite para toda la familia</p>
-                    <p class="price">Desde $159/noche</p>
-                    <a href="#" class="btn">Reservar</a>
-                </div>
-            </div>
-            <div class="room-card">
-                <img src="/api/placeholder/400/300" alt="Suite Ejecutiva">
-                <div class="room-info">
-                    <h3>Suite Ejecutiva</h3>
-                    <p>Lujo y confort para viajes de negocios</p>
-                    <p class="price">Desde $199/noche</p>
-                    <a href="#" class="btn">Reservar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contacto">
-        <h3>Hotel Posada del Sol</h3>
-        <p>Av. Principal #123, Peru</p>
-        <p>Tel: +123 456 7890</p>
-        <p>Email: info@posadadelsol.com</p>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-    </footer>
-</body>
-</html>
